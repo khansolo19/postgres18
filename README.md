@@ -63,7 +63,75 @@ CREATE TABLE book (
     author_id int foreign key references author (id)
 )
 ```
+## Виды связей
+> One to one - (один к одному) 
+* Один автор - одна биография 
+* Один флаг - одна срана
+* Один человек - одно сердце
 
+
+> One to many - (один ко многим)
+* Один  человек - много клеток, но у одной клетки только один человек
+* Одни родители - много детей, но у одного ребенка только одни родители
+* Один аккаунт - много постов, но у многих постов только один автор (аккаунт)
+
+> Many to many - (Многие ко многим)
+* У человека много друзей и у друга много дргуих друзей
+* У доктора много пациентов и у пациента много докторов
+* У пользователя много соц.сетей и у одной соц.сети много
+
+## Виды связей
+### One to one 
+```sql
+CREATE TABLE flag(
+    id serial primary key,
+    photo text
+);
+CREATE TABLE country(
+    id serial primary key,
+    title varchar(50)
+    gimn text,
+    flag_id int unique 
+    foreign key fk_country_flag references flag(id)
+);
+```
+### One to many
+```sql
+CREATE TABLE account(
+    id serial primary key,
+    nickname varchar(25) unique,
+    upassword varchar(255)
+);
+CREATE TABLE post(
+    id serial primary key,
+    title varchar(100),
+    body text,
+    photo text,
+    account_id int 
+    foreign key fk_acc_post references account(id)
+);
+```
+### Many to many
+```sql
+CREATE TABLE doctor(
+    id serial primary key,
+    first_name varchar(25),
+    last_name varchar(50)
+);
+CREATE TABLE patient(
+    id serial primary key,
+    first_name varchar(25),
+    last_name varchar(50)
+);
+CREATE TABLE doctor_patient(
+    doctor_id int foreign key fk_doctor references doctor(id),
+
+    patient_id int foreign key fk_patient references patient(id)
+);
+```
+
+
+## Joins
 > JOIN - это инструкция, которая позволяет в запросах SELECT извлекать данные из 
 нескольких таблиц
 > INNER JOIN - когда достаются только те записи у которых есть полная связь
