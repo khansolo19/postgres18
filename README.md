@@ -60,7 +60,9 @@ CREATE TABLE book (
     id serial,
     title varchar(100),
     published year,
-    author_id int foreign key references author (id)
+    author_id int,
+    constraint fk_author_book
+    foreign key (author_id) references author (id)
 )
 ```
 ## Виды связей
@@ -94,7 +96,7 @@ CREATE TABLE country(
     flag_id int unique,
 
     constraint fk_country_flag 
-    foreign key flag_id references flag(id)
+    foreign key (flag_id) references flag(id)
 );
 ```
 ### One to many
@@ -112,7 +114,7 @@ CREATE TABLE post(
     account_id int,
 
     constraint fk_acc_post
-    foreign key account_id references account(id)
+    foreign key (account_id) references account(id)
 );
 ```
 ### Many to many
@@ -131,9 +133,9 @@ CREATE TABLE doctor_patient(
     doctor_id int, 
     patient_id int,
     constraint fk_doctor
-    foreign key doctor_id references doctor(id),
+    foreign key (doctor_id) references doctor(id),
     constraint fk_patient
-    foreign key patient_id references patient(id)
+    foreign key (patient_id) references patient(id)
 );
 ```
 
